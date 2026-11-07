@@ -29,15 +29,20 @@
       </div>
     </section>
 
-    <!-- Step 2: optional note + send -->
+    <!-- Step 2: name + optional note + send -->
     <section id="step-note" class="hidden">
       <p class="chosen">Your answer: <strong id="chosen-text"></strong></p>
-      <label for="note">Want to add a note? (optional)</label>
+
+      <label for="from">Your name</label>
+      <input id="from" type="text" maxlength="40" placeholder="Type your name" autocomplete="name" />
+
+      <label for="note" class="note-label">Want to add a note? (optional)</label>
       <textarea id="note" maxlength="1000" rows="4" placeholder="Write anything you'd like me to know..."></textarea>
       <div class="actions">
         <button id="back" class="ghost" type="button">← Change answer</button>
         <button id="send" class="primary" type="button">Seal my answer 💌</button>
       </div>
+      <p id="error" class="error hidden"></p>
     </section>
 
     <!-- Step 3: thank you + love note -->
