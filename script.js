@@ -215,14 +215,12 @@ function drawReceipt() {
 }
 
 function setupButtons() {
-  // WhatsApp click-to-chat link (opens chat with you, message pre-filled)
+  // WhatsApp button: always visible
   const wa = $("wa");
-  if (MY_WHATSAPP) {
-    wa.href = "https://wa.me/" + MY_WHATSAPP + "?text=" + encodeURIComponent(waitMessage());
-  } else {
-    wa.classList.add("hidden");
-    $("wa-hint").textContent = "Save your love note and send it to him. 🌷";
-  }
+  const text = encodeURIComponent(waitMessage());
+  wa.href = MY_WHATSAPP
+    ? "https://wa.me/" + MY_WHATSAPP + "?text=" + text
+    : "https://wa.me/?text=" + text;
 
   $("receipt").toBlob((blob) => {
     receiptBlob = blob;
