@@ -97,6 +97,19 @@ textarea {
   background: #fff;
   resize: vertical;
 }
+input[type="text"] {
+  width: 100%;
+  padding: 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  border: 1.5px solid #f1c6d6;
+  border-radius: 14px;
+  background: #fff;
+}
+input[type="text"]:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 4px rgba(225, 29, 106, 0.12); }
+.note-label { margin-top: 16px; }
+.error { margin-top: 14px; color: #b00020; font-size: 0.9rem; }
 textarea:focus { outline: none; border-color: var(--rose); box-shadow: 0 0 0 4px rgba(225, 29, 106, 0.12); }
 
 .actions { display: flex; gap: 12px; margin-top: 18px; }
