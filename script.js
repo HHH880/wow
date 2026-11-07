@@ -100,7 +100,7 @@ $("back").addEventListener("click", () => {
 
 // ====== CONFIG: put YOUR WhatsApp number here ======
 // Country code + number, digits only, no "+" or spaces. Example: "233501234567"
-const MY_WHATSAPP = "";
+const MY_WHATSAPP = "+233530549757";
 // ====================================================
 
 let receiptBlob = null;
