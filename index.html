@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Question For You 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+  <main class="card" id="card">
+    <!-- Step 1: the question -->
+    <section id="step-question">
+      <div class="emoji">💌</div>
+      <h1>Hi <span id="name">there</span>,</h1>
+      <p class="lead">
+        I've admired your passion, your kindness and the way you carry yourself.
+        I'd really love to get to know you better, so I have a question:
+      </p>
+      <h2>Will you be my girlfriend?</h2>
+
+      <div class="choices">
+        <button id="yes" class="choice yes" data-answer="Yes" type="button">Yes 💖</button>
+        <button id="no" class="choice no" type="button">No</button>
+      </div>
+    </section>
+
+    <!-- Step 2: optional note + send -->
+    <section id="step-note" class="hidden">
+      <p class="chosen">Your answer: <strong id="chosen-text"></strong></p>
+      <label for="note">Want to add a note? (optional)</label>
+      <textarea id="note" maxlength="1000" rows="4" placeholder="Write anything you'd like me to know..."></textarea>
+      <div class="actions">
+        <button id="back" class="ghost" type="button">← Change answer</button>
+        <button id="send" class="primary" type="button">Seal my answer 💌</button>
+      </div>
+    </section>
+
+    <!-- Step 3: thank you + receipt -->
+    <section id="step-done" class="hidden">
+      <div class="emoji" id="done-emoji">✨</div>
+      <h2 id="done-title">Thank you</h2>
+      <p class="lead" id="done-text"></p>
+
+      <canvas id="receipt" class="receipt" width="900" height="1200"></canvas>
+
+      <div class="done-actions">
+        <a id="wa" class="primary btn" href="#" target="_blank" rel="noopener">Send my answer on WhatsApp 💬</a>
+        <button id="download" class="ghost" type="button">Save my love note ⬇️</button>
+        <button id="share" class="ghost hidden" type="button">Share my love note 📤</button>
+      </div>
+      <p class="small" id="wa-hint">Tap the WhatsApp button, then press send in the chat. 🌷</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
