@@ -6,7 +6,7 @@ const stepDone = $("step-done");
 
 let selected = null;
 
-
+// Personalise with ?to=Ama in the link
 const params = new URLSearchParams(location.search);
 const to = (params.get("to") || "").trim().slice(0, 40);
 if (to) $("name").textContent = to;
@@ -37,7 +37,7 @@ yesBtn.addEventListener("click", () => {
   $("chosen-text").textContent = selected;
   stepQuestion.classList.add("hidden");
   stepNote.classList.remove("hidden");
-  $("note").focus();
+  $("from").focus();
 });
 
 // The "No" button runs away from the pointer
@@ -100,16 +100,26 @@ $("back").addEventListener("click", () => {
 
 // ====== CONFIG: put YOUR WhatsApp number here ======
 // Country code + number, digits only, no "+" or spaces. Example: "233501234567"
-const MY_WHATSAPP = "+233530549757";
+const MY_WHATSAPP = "";
 // ====================================================
 
 let receiptBlob = null;
-let receiptNo = "";
 let note = "";
+let fromName = "";
 
-$("send").addEventListener("click", async () => {
+// Pre-fill her name if it was in the link (?to=Ama)
+if (to) $("from").value = to;
+
+$("send").addEventListener("click", () => {
+  fromName = $("from").value.trim();
+  if (!fromName) {
+    $("error").textContent = "Please type your name first 💕";
+    $("error").classList.remove("hidden");
+    $("from").focus();
+    return;
+  }
+  $("error").classList.add("hidden");
   note = $("note").value.trim();
-  receiptNo = "LV-" + Date.now().toString(36).toUpperCase().slice(-6);
   showDone();
   drawReceipt();
   setupButtons();
@@ -121,10 +131,11 @@ function nowText() {
 
 function waitMessage() {
   return (
-    "💌 My answer" + (to ? " (" + to + ")" : "") + "\n\n" +
+    "💌 My answer\n\n" +
+    "From: " + fromName + "\n" +
     "Answer: " + selected + "\n" +
     (note ? "Note: " + note + "\n" : "") +
-    "Love note No. " + receiptNo + "\n" + nowText()
+    nowText()
   );
 }
 
@@ -189,7 +200,7 @@ function drawReceipt() {
     y += 36;
   };
 
-  row("FROM", to || "Someone special");
+  row("FROM", fromName);
   row("ANSWER", selected + (selected === "Yes" ? " 💖" : ""), "#e11d6a");
   row("NOTE", note || "—");
 
@@ -199,7 +210,7 @@ function drawReceipt() {
   ctx.textAlign = "center";
   ctx.fillStyle = "#7a6672";
   ctx.font = "500 32px Inter, Arial, sans-serif";
-  ctx.fillText("With love · No. " + receiptNo, W / 2, H - 200);
+  ctx.fillText("With love 💖", W / 2, H - 200);
   ctx.fillText(nowText(), W / 2, H - 150);
 }
 
@@ -215,7 +226,7 @@ function setupButtons() {
 
   $("receipt").toBlob((blob) => {
     receiptBlob = blob;
-    const file = new File([blob], "love-note-" + receiptNo + ".png", { type: "image/png" });
+    const file = new File([blob], "love-note.png", { type: "image/png" });
     if (navigator.canShare && navigator.canShare({ files: [file] })) {
       $("share").classList.remove("hidden");
     }
@@ -226,14 +237,14 @@ $("download").addEventListener("click", () => {
   if (!receiptBlob) return;
   const a = document.createElement("a");
   a.href = URL.createObjectURL(receiptBlob);
-  a.download = "love-note-" + receiptNo + ".png";
+  a.download = "love-note.png";
   a.click();
   setTimeout(() => URL.revokeObjectURL(a.href), 2000);
 });
 
 $("share").addEventListener("click", async () => {
   if (!receiptBlob) return;
-  const file = new File([receiptBlob], "love-note-" + receiptNo + ".png", { type: "image/png" });
+  const file = new File([receiptBlob], "love-note.png", { type: "image/png" });
   try {
     await navigator.share({ files: [file], text: waitMessage() });
   } catch (e) { /* cancelled */ }
